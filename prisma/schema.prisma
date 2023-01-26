@@ -9,3 +9,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  username String
+  email    String  @unique
+  Album    Album[]
+}
+
+model Album {
+  id         Int      @id @default(autoincrement())
+  albumTitle String
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  Photos     Photos[]
+}
+
+model Photos {
+  id         Int    @id @default(autoincrement())
+  photoTitle String
+  albumId    Int
+  album      Album  @relation(fields: [albumId], references: [id])
+}
