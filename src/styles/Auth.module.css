@@ -41,6 +41,12 @@
   font-size: 1.3rem;
 }
 
+.middle {
+  padding: 1rem;
+  display: grid;
+  place-content: center;
+}
+
 /* buttons */
 .login_btn, .provider_btn {
   font-size: 1.4rem;
@@ -55,6 +61,10 @@
 }
 
 .provider_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
   background: var(--colors-gray5);
   box-shadow: var(--colors-blackA1) 0 0 0 0,var(--colors-blackA1) 0 0 0 0,var(--colors-blackA8) 0 1px 1px 0,var(--colors-gray8) 0 0 0 1px,var(--colors-blackA1) 0 0 0 0,var(--colors-blackA1) 0 0 0 0,rgb(64 68 82/8%) 0 2px 5px 0;
 }

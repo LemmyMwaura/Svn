@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { BsEye, BsEyeSlash } from 'react-icons/bs'
+import { AiOutlineGoogle } from 'react-icons/ai'
+import { FiGithub } from 'react-icons/fi'
 import styles from '@/styles/Auth.module.css'
 
 interface Props {
@@ -26,12 +28,21 @@ const Login = ({ toggle }: Props) => {
               placeholder="password"
             />
             <span className={styles.icon} onClick={togglePass}>
-              {show ? <BsEyeSlash /> : <BsEye/>}
+              {show ? <BsEyeSlash /> : <BsEye />}
             </span>
           </div>
           <button className={styles.provider_btn}>Login</button>
-          <button className={styles.provider_btn}>Sign In With Google</button>
-          <button className={styles.provider_btn}>Sign In With Github</button>
+          <div className={styles.middle}>
+            <span>or</span>
+          </div>
+          <button className={styles.provider_btn}>
+            <span>Sign In With</span>
+            <AiOutlineGoogle />
+          </button>
+          <button className={styles.provider_btn}>
+            <span>Sign In With</span>
+            <FiGithub />
+          </button>
         </div>
         <div className={styles.footer}>
           dont have an account yet <span onClick={toggle}>Sign Up</span>
