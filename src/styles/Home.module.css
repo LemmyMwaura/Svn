@@ -45,11 +45,12 @@
   cursor: pointer;
 }
 
-.btn:active {
+.btn:active,
+.link:active {
   transform: scale(0.95);
 }
 
-.card, .btn {
+.card, .btn, .link {
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 0.1);
