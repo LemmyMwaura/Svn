@@ -1,11 +1,23 @@
 import Head from 'next/head'
+import styles from '@/styles/Auth.module.css'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { Login as LoginComponent } from '@/components/login'
 import { Signup as SignupComponent } from '@/components/signup'
-import styles from '@/styles/Auth.module.css'
 
 const Login = () => {
+  const { data: session, status } = useSession()
   const [isLogin, setMode] = useState<boolean>(true)
+  const router = useRouter()
+
+  if(status === "loading") {
+    return "loading"
+  }
+
+  if (session?.user) {
+    router.push('/home')
+  }
 
   const toggle = () => {
     setMode((prev) => !prev)
@@ -16,6 +28,7 @@ const Login = () => {
       <Head>
         <title>Login | Savannah</title>
       </Head>
+
       <div className={styles.auth_wrapper}>
         {isLogin && <LoginComponent toggle={toggle} />}
         {!isLogin && <SignupComponent toggle={toggle} />}
