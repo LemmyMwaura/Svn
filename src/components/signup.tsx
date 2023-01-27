@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from '@/styles/Auth.module.css'
 
 interface Props {
   toggle: () => void
@@ -6,30 +7,35 @@ interface Props {
 
 const Signup = ({ toggle }: Props) => {
   const [show, setShow] = useState(false)
+  const [showcp, setCShow] = useState(false)
 
   const togglePass = () => {
     setShow((prev) => !prev)
   }
 
+  const toggleConfirmPass = () => {
+    setCShow((prev) => !prev)
+  }
+
   return (
     <div>
-      <form action="">
+      <form action="" className={styles.container}>
         <h3>SignUp</h3>
-        <div>
-          <input type="text" placeholder="Username" />
-          <input type="text" placeholder="Email" />
-          <div>
-            <input type={show ? 'text' : 'password'} placeholder="Password" />
-            <span onClick={togglePass}>Icon</span>
+        <div className={styles.fields_wrapper}>
+          <input className={styles.input} type="text" placeholder="Username" />
+          <input className={styles.input} type="text" placeholder="Email" />
+          <div className={styles.password}>
+            <input className={styles.input} type={show ? 'text' : 'password'} placeholder="Password" />
+            <span className={styles.icon} onClick={togglePass}>Icon</span>
           </div>
-          <div>
-            <input type={show ? 'text' : 'password'} placeholder="Confirm Password" />
-            <span onClick={togglePass}>Icon</span>
+          <div className={styles.password}>
+            <input className={styles.input} type={showcp ? 'text' : 'password'} placeholder="Confirm Password" />
+            <span className={styles.icon} onClick={toggleConfirmPass}>Icon</span>
           </div>
-          <button>Sign Up</button>
+          <button className={styles.login_btn}>Sign Up</button>
         </div>
-        <div>
-          Already have an account<button onClick={toggle}>Login</button>
+        <div className={styles.footer}>
+          Already have an account<span onClick={toggle}>Login</span>
         </div>
       </form>
     </div>

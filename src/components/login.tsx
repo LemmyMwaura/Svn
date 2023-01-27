@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from '@/styles/Auth.module.css'
 
 interface Props {
   toggle: () => void
@@ -13,20 +14,24 @@ const Login = ({ toggle }: Props) => {
 
   return (
     <div>
-      <form>
+      <form className={styles.container}>
         <h3>Login</h3>
-        <div>
-          <input type="text" placeholder="Email" />
-          <div>
-            <input type={show ? 'text' : 'password'} placeholder="password" />
-            <span onClick={togglePass}>Icon</span>
+        <div className={styles.fields_wrapper}>
+          <input className={styles.input} type="text" placeholder="Email" />
+          <div className={styles.password}>
+            <input
+              className={styles.input}
+              type={show ? 'text' : 'password'}
+              placeholder="password"
+            />
+            <span className={styles.icon} onClick={togglePass}>Icon</span>
           </div>
-          <button>Login</button>
+          <button className={styles.provider_btn}>Login</button>
+          <button className={styles.provider_btn}>Sign In With Google</button>
+          <button className={styles.provider_btn}>Sign In With Github</button>
         </div>
-        <button>Sign In With Google</button>
-        <button>Sign In With Github</button>
-        <div>
-          dont have an account yet<button onClick={toggle}>Sign Up</button>
+        <div className={styles.footer}>
+          dont have an account yet <span onClick={toggle}>Sign Up</span>
         </div>
       </form>
     </div>

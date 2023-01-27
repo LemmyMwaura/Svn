@@ -34,6 +34,26 @@
     #00000080
   );
 
+  --colors-gray1: #161616;
+  --colors-gray2: #1c1c1c;
+  --colors-gray3: #232323;
+  --colors-gray4: #282828;
+  --colors-gray5: #2e2e2e;
+  --colors-gray6: #343434;
+  --colors-gray7: #3e3e3e;
+  --colors-gray8: #505050;
+  --colors-gray9: #707070;
+  --colors-gray10: #7e7e7e;
+  --colors-gray11: #a0a0a0;
+  --colors-gray12: #ededed;
+  --colors-blackA1: rgba(0, 0, 0, 0.012);
+  --colors-blackA8: rgba(0, 0, 0, 0.22);
+  --colors-fixed-brand8: #34b27b;
+  --colors-fixed-brand9: #3fcf8e;
+  --colors-fixed-brand10: #40bf86;
+  --colors-fixed-brand11: #2b825b;
+  --colors-fixed-brand12: #122b20;
+
   --callout-rgb: 238, 240, 241;
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
@@ -43,8 +63,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-start-rgb: 28, 28, 28;
+    --background-end-rgb: 28, 28, 28;
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
@@ -99,6 +119,17 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  transition: 100ms ease;
+}
+
+button:active {
+  transform: scale(0.95);
+  transform-origin: center;
 }
 
 @media (prefers-color-scheme: dark) {
