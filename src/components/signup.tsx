@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
-import styles from '@/styles/Auth.module.css'
+import styles from '@/styles/Auth.module.scss'
 
 interface Props {
   toggle: () => void

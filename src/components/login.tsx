@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from 'react'
 import { signIn } from 'next-auth/react'
-import styles from '@/styles/Auth.module.css'
+import styles from '@/styles/Auth.module.scss'
 
 // icons
 import { FiGithub } from 'react-icons/fi'
