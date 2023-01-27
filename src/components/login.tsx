@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import styles from '@/styles/Auth.module.css'
 
 interface Props {
@@ -24,7 +25,9 @@ const Login = ({ toggle }: Props) => {
               type={show ? 'text' : 'password'}
               placeholder="password"
             />
-            <span className={styles.icon} onClick={togglePass}>Icon</span>
+            <span className={styles.icon} onClick={togglePass}>
+              {show ? <BsEyeSlash /> : <BsEye/>}
+            </span>
           </div>
           <button className={styles.provider_btn}>Login</button>
           <button className={styles.provider_btn}>Sign In With Google</button>

@@ -33,7 +33,12 @@
 
 .icon {
   position: absolute;
-  right: 0.5rem;
+  right: 0.8rem;
+  cursor: pointer;
+}
+
+.icon > * {
+  font-size: 1.3rem;
 }
 
 /* buttons */

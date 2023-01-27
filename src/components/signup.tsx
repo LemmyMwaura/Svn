@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import styles from '@/styles/Auth.module.css'
 
 interface Props {
@@ -26,11 +27,15 @@ const Signup = ({ toggle }: Props) => {
           <input className={styles.input} type="text" placeholder="Email" />
           <div className={styles.password}>
             <input className={styles.input} type={show ? 'text' : 'password'} placeholder="Password" />
-            <span className={styles.icon} onClick={togglePass}>Icon</span>
+            <span className={styles.icon} onClick={togglePass}>
+              {show ? <BsEyeSlash /> : <BsEye/>}
+            </span>
           </div>
           <div className={styles.password}>
             <input className={styles.input} type={showcp ? 'text' : 'password'} placeholder="Confirm Password" />
-            <span className={styles.icon} onClick={toggleConfirmPass}>Icon</span>
+            <span className={styles.icon} onClick={toggleConfirmPass}>
+              {showcp ? <BsEyeSlash /> : <BsEye/>}
+            </span>
           </div>
           <button className={styles.login_btn}>Sign Up</button>
         </div>
