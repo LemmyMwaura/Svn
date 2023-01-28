@@ -1,0 +1,19 @@
+.wrapper {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  
+  .spinner {
+    display: grid;
+    place-content: center;
+    margin: 0;
+    padding: 2.5rem;
+    background-color: rgba(var(--callout-rgb), 0.5);
+    border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+    border-radius: var(--border-radius);
+    
+    .loader {
+      border-radius: var(--border-radius);
+    }
+  }
+}

@@ -1,30 +1,23 @@
-import Image from 'next/image'
 import { GetServerSideProps } from 'next'
-import { getSession, useSession, signOut } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
+import Profile from '@/components/profile'
+import Spinner from '@/components/spinner'
+import spinStyles from '@/styles/Utils.module.scss'
 
 const Home = () => {
   const { data: session, status } = useSession()
 
   if (status === 'loading') {
-    ;('loading details')
-  }
-
-  const handleSignOut = () => {
-    signOut()
+    return (
+      <div className={spinStyles.wrapper}>
+        <Spinner />
+      </div>
+    )
   }
 
   return (
     <div>
-      <div>{session?.user?.name}</div>
-      <img
-        src={session?.user?.image}
-        width={100}
-        height={100}
-        alt="User Profile Image"
-      />
-      <button className='btn' onClick={handleSignOut}>Log Out</button>
-      
-      Welcome {JSON.stringify(session)}
+      <Profile user={session?.user} />
     </div>
   )
 }
