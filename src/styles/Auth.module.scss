@@ -1,5 +1,5 @@
 .auth_wrapper {
-  display:grid;
+  display: grid;
   place-content: center;
   min-height: 100vh;
 }
@@ -13,6 +13,14 @@
 .fields_wrapper {
   display: grid;
   gap: 0.8rem;
+
+  .input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(var(--callout-rgb), 0.5);
+    border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+    border-radius: var(--border-radius);
+  }
 }
 
 .password {
@@ -21,24 +29,16 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-}
 
-.input {
-  width: 100%;
-  padding: 1rem;
-  background: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-  border-radius: var(--border-radius);
-}
+  .icon {
+    position: absolute;
+    right: 0.8rem;
+    cursor: pointer;
 
-.icon {
-  position: absolute;
-  right: 0.8rem;
-  cursor: pointer;
-}
-
-.icon > * {
-  font-size: 1.3rem;
+    & > * {
+      font-size: 1.3rem;
+    }
+  }
 }
 
 .middle {
@@ -47,8 +47,13 @@
   place-content: center;
 }
 
+.error {
+  color: var(--colors-error);
+}
+
 /* buttons */
-.login_btn, .provider_btn {
+.login_btn,
+.provider_btn {
   font-size: 1.4rem;
   padding: 0.8rem 0.5rem;
   cursor: pointer;
@@ -57,7 +62,14 @@
 
 .login_btn {
   background: var(--colors-fixed-brand11);
-  box-shadow: var(--colors-blackA1) 0 0 0 0,var(--colors-blackA1) 0 0 0 0,var(--colors-blackA8) 0 1px 1px 0,var(--colors-fixed-brand10) 0 0 0 1px,var(--colors-blackA1) 0 0 0 0,var(--colors-blackA1) 0 0 0 0,rgb(64 68 82/8%) 0 2px 5px 0;
+  box-shadow: var(--colors-blackA1) 0 0 0 0, var(--colors-blackA1) 0 0 0 0,
+    var(--colors-blackA8) 0 1px 1px 0, var(--colors-fixed-brand10) 0 0 0 1px,
+    var(--colors-blackA1) 0 0 0 0, var(--colors-blackA1) 0 0 0 0,
+    rgb(64 68 82/8%) 0 2px 5px 0;
+
+  &:hover {
+    background: var(--colors-fixed-brand10);
+  }
 }
 
 .provider_btn {
@@ -66,16 +78,16 @@
   justify-content: center;
   gap: 0.8rem;
   background: var(--colors-gray5);
-  box-shadow: var(--colors-blackA1) 0 0 0 0,var(--colors-blackA1) 0 0 0 0,var(--colors-blackA8) 0 1px 1px 0,var(--colors-gray8) 0 0 0 1px,var(--colors-blackA1) 0 0 0 0,var(--colors-blackA1) 0 0 0 0,rgb(64 68 82/8%) 0 2px 5px 0;
+  box-shadow: var(--colors-blackA1) 0 0 0 0, var(--colors-blackA1) 0 0 0 0,
+    var(--colors-blackA8) 0 1px 1px 0, var(--colors-gray8) 0 0 0 1px,
+    var(--colors-blackA1) 0 0 0 0, var(--colors-blackA1) 0 0 0 0,
+    rgb(64 68 82/8%) 0 2px 5px 0;
+
+  &:hover {
+    background: var(--colors-gray7);
+  }
 }
 
-.provider_btn:hover{
-  background: var(--colors-gray7);
-}
-
-.login_btn:hover{
-  background: var(--colors-fixed-brand10);
-}
 /* end btns */
 
 .footer {
