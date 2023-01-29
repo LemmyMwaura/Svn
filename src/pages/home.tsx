@@ -18,9 +18,11 @@ import styles from '@/styles/Home.module.scss'
 
 interface Props {
   users: Prisma.UserSelect[]
+  externalUsers: any[]
+  albums: Prisma.AlbumSelect[]
 }
 
-const Home = ({ users }: Props) => {
+const Home = ({ users, externalUsers, albums }: Props) => {
   const { data: session, status } = useSession()
 
   if (status === 'loading') {
@@ -43,7 +45,14 @@ const Home = ({ users }: Props) => {
       </Head>
       <div className={styles.wrapper}>
         <Profile user={session?.user} />
-        <UsersList users={users} />
+        <div className={styles.selection}>
+          <h3>Users From Local DB</h3>
+          <UsersList users={users} />
+        </div>
+        <div className={styles.selection}>
+          <h3>Users From Json Placeholder</h3>
+          <UsersList users={externalUsers} />
+        </div>
       </div>
     </>
   )
@@ -53,11 +62,18 @@ export default Home
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
-  const users = await prisma.user.findMany()
-  const usersFromJson = await axiosInstance.get('/users')
+  const users = await prisma.user.findMany({
+    include: {
+      _count: {
+        select: {
+          albums: true,
+        },
+      },
+    },
+  })
+  const albums = await prisma.album.findMany()
 
-  console.log({ users })
-  console.log({ usersFromJson })
+  const { data: externalUsers } = await axiosInstance.get('/users')
 
   if (!session) {
     return {
@@ -72,6 +88,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     props: {
       session,
       users,
+      externalUsers,
+      albums
     },
   }
 }
