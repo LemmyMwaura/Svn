@@ -9,7 +9,7 @@ import { axiosInstance } from '@/lib/axios.util'
 
 // components
 import Profile from '@/components/shared/profile'
-import Spinner from '@/components/spinner'
+import Spinner from '@/components/shared/spinner'
 import UsersList from '@/components/home/usersList'
 
 // styles

@@ -5,8 +5,8 @@ import { useSession } from 'next-auth/react'
 
 // compoponents
 import { Login as LoginComponent } from '@/components/auth/login'
-import { Signup as SignupComponent } from '@/components/signup'
-import Spinner from '@/components/spinner'
+import { Signup as SignupComponent } from '@/components/auth/signup'
+import Spinner from '@/components/shared/spinner'
 
 // styles
 import styles from '@/styles/Auth.module.scss'

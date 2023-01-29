@@ -1,10 +1,15 @@
+// hooks
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { BsEye, BsEyeSlash } from 'react-icons/bs'
-import styles from '@/styles/Auth.module.scss'
+
+// utils
 import toast from 'react-hot-toast'
 import axios from 'axios'
+
+// styles
+import { BsEye, BsEyeSlash } from 'react-icons/bs'
+import styles from '@/styles/Auth.module.scss'
 
 interface Props {
   toggle: () => void
@@ -45,23 +50,31 @@ const Signup = ({ toggle }: Props) => {
     setCShow((prev) => !prev)
   }
 
-  const onSubmit: SubmitHandler<Inputs> = async ({ username:name, email, password }) => {
-    const isValid = axios.post('/api/validate', email)
-    await toast.promise(isValid, {
-      loading: 'Validating',
-      success: () => `Validation Success`,
-      error: (err) => `This just happened: ${err.response.data.message.toString()}`,
-    })
+  const onSubmit: SubmitHandler<Inputs> = async ({
+    username: name,
+    email,
+    password,
+  }) => {
+    // toast doesn't fully catch the err so we wrap this in a try catch block
+    try {
+      const isValid = axios.post('/api/validate', { email })
+      await toast.promise(isValid, {
+        loading: 'Validating',
+        success: () => `Validation Success`,
+        error: (err) =>
+          `This just happened: ${err.response.data.message.toString()}`,
+      })
 
-    const promise = axios.post('/api/users', { name, email, password })
-    await toast.promise(promise, {
-      loading: 'Creating Account',
-      success: () => `Successfully Signed in`,
-      error: (err) => `This just happened: ${err.response.data.message.toString()}`,
-    })
+      const promise = axios.post('/api/signup', { name, email, password })
+      await toast.promise(promise, {
+        loading: 'Creating Account',
+        success: () => `Successfully Signed in`,
+        error: (err) => `This just happened: ${err.message.toString()}`,
+      })
+    } catch (err) {}
 
     reset()
-    // router.push("/home")
+    router.push('/home')
   }
 
   return (
