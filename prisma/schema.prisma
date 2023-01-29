@@ -16,7 +16,7 @@ model User {
   image    String?
   email    String  @unique
   password String
-  Album    Album[]
+  albums    Album[]
 }
 
 model Album {
@@ -24,7 +24,7 @@ model Album {
   albumTitle String
   userId     Int
   user       User     @relation(fields: [userId], references: [id])
-  Photos     Photos[]
+  photos     Photos[]
 }
 
 model Photos {
