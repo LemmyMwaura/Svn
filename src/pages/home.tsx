@@ -8,7 +8,7 @@ import { prisma } from '@/lib/prisma.util'
 import { axiosInstance } from '@/lib/axios.util'
 
 // components
-import Profile from '@/components/profile'
+import Profile from '@/components/shared/profile'
 import Spinner from '@/components/spinner'
 import UsersList from '@/components/home/usersList'
 
