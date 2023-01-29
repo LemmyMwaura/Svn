@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import styles from '@/styles/Auth.module.scss'
+import toast from 'react-hot-toast'
+import axios from 'axios'
 
 interface Props {
   toggle: () => void
@@ -15,6 +18,7 @@ type Inputs = {
 }
 
 const Signup = ({ toggle }: Props) => {
+  const router = useRouter()
   const [show, setShow] = useState(false)
   const [showcp, setCShow] = useState(false)
   const {
@@ -23,7 +27,7 @@ const Signup = ({ toggle }: Props) => {
     watch,
     reset,
     formState: { errors },
-  } = useForm<Inputs>()
+  } = useForm<Inputs>({ reValidateMode: 'onChange' })
 
   const passMatch = (): boolean => {
     const watchPasswords = watch(['password', 'confirmPassword'])
@@ -41,17 +45,28 @@ const Signup = ({ toggle }: Props) => {
     setCShow((prev) => !prev)
   }
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
-    // reset()
+  const onSubmit: SubmitHandler<Inputs> = async ({ username:name, email, password }) => {
+    const isValid = axios.post('/api/validate', email)
+    await toast.promise(isValid, {
+      loading: 'Validating',
+      success: () => `Validation Success`,
+      error: (err) => `This just happened: ${err.response.data.message.toString()}`,
+    })
+
+    const promise = axios.post('/api/users', { name, email, password })
+    await toast.promise(promise, {
+      loading: 'Creating Account',
+      success: () => `Successfully Signed in`,
+      error: (err) => `This just happened: ${err.response.data.message.toString()}`,
+    })
+
+    reset()
+    // router.push("/home")
   }
 
   return (
     <div>
-      <form
-        onSubmit={() => handleSubmit(onSubmit)}
-        className={styles.container}
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
         <h3>SignUp</h3>
         <div className={styles.fields_wrapper}>
           <input
@@ -65,7 +80,7 @@ const Signup = ({ toggle }: Props) => {
           )}
           <input
             className={styles.input}
-            type="text"
+            type="email"
             placeholder="Email"
             {...register('email', { required: true })}
           />
