@@ -2,45 +2,57 @@ import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import prisma from '@/lib/prisma.util'
+
+// utils
+import { prisma } from '@/lib/prisma.util'
+import { compare } from 'bcrypt'
+
+type ReqData = {
+  email: string
+  password: string
+}
+
+type Provider = {
+  clientId: string
+  clientSecret: string
+}
 
 export const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-    }),
+    } as Provider),
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
-    }),
+    } as Provider),
     CredentialsProvider({
       name: 'credentials',
-      async authorize(credentials, req) {
+      credentials: {},
+      async authorize(credentials, _) {
         // check user
-        const { email, password: userPass } = credentials
-        const result = await prisma.user.findFirst({
+        const { email, password: userPass } = credentials as ReqData
+        const user = await prisma.user.findFirst({
           where: { email },
         })
-        
-        console.log({email, result})
 
-        if (!result) {
-          return res.status(400).json({ message: "Account doesn't exist" })
+        if (!user) {
+          throw new Error("Account doesn't exist")
         }
 
         //validate password
-        compare(userPass, user.password, async (err, result) => {
+        return compare(userPass, user.password, async (err, result) => {
           if (err) {
-            res.status(500).json({ message: 'Something went wrong, Try again' })
+            throw new Error('Something went wrong, Try again')
           }
 
-          if (!result) {
-            return res.status(403).json({ message: 'Password is incorrect' })
+          if (result) {
+            return user
+          } else {
+            return null
           }
         })
-        
-        return result
       },
     }),
   ],
@@ -50,4 +62,4 @@ export const authOptions = {
   },
 }
 
-export default NextAuth(authOptions)
+export default NextAuth(authOptions as any)
