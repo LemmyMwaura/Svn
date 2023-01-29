@@ -9,7 +9,7 @@ interface Props {
 const UsersList = ({ users }: Props) => {
   return (
     <div className={styles.userlist}>
-      {users.map((user, idx) => (
+      {users.length && users.map((user, idx) => (
         <div key={idx}>
           <User user={user} />
         </div>

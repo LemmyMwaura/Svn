@@ -6,6 +6,7 @@ import { Prisma } from '@prisma/client'
 // libs/Utils
 import { prisma } from '@/lib/prisma.util'
 import { axiosInstance } from '@/lib/axios.util'
+import { useJsonPlaceholderFetcher } from '@/hooks/tanstack-query'
 
 // components
 import Profile from '@/components/shared/profile'
@@ -24,8 +25,14 @@ interface Props {
 
 const Home = ({ users, externalUsers, albums }: Props) => {
   const { data: session, status } = useSession()
+  const { data, isLoading } = useJsonPlaceholderFetcher('jsonusers', 'users', {
+    initialData: {
+      data: externalUsers,
+    },
+  })
+  const { data: jsonData } = data as any
 
-  if (status === 'loading') {
+  if (status === 'loading' || isLoading) {
     return (
       <>
         <Head>
@@ -51,7 +58,7 @@ const Home = ({ users, externalUsers, albums }: Props) => {
         </div>
         <div className={styles.selection}>
           <h3>Users From Json Placeholder</h3>
-          <UsersList users={externalUsers} />
+          <UsersList users={jsonData} />
         </div>
       </div>
     </>
@@ -62,6 +69,7 @@ export default Home
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
+  const albums = await prisma.album.findMany()
   const users = await prisma.user.findMany({
     include: {
       _count: {
@@ -71,7 +79,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     },
   })
-  const albums = await prisma.album.findMany()
 
   const { data: externalUsers } = await axiosInstance.get('/users')
 
@@ -89,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       session,
       users,
       externalUsers,
-      albums
+      albums,
     },
   }
 }
