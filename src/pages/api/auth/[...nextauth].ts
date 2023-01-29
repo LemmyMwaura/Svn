@@ -28,9 +28,9 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     } as Provider),
     CredentialsProvider({
-      name: 'credentials',
+      name: 'Credentials',
       credentials: {},
-      async authorize(credentials, _) {
+      async authorize(credentials, req) {
         // check user
         const { email, password: userPass } = credentials as ReqData
         const user = await prisma.user.findFirst({
@@ -42,17 +42,12 @@ export const authOptions = {
         }
 
         //validate password
-        return compare(userPass, user.password, async (err, result) => {
-          if (err) {
-            throw new Error('Something went wrong, Try again')
-          }
+        const isValid = await compare(userPass, user.password)
+        if(!isValid) {
+          throw new Error("Password doesn't match")
+        }
 
-          if (result) {
-            return user
-          } else {
-            return null
-          }
-        })
+        return user as any
       },
     }),
   ],
