@@ -20,13 +20,12 @@ export default function handler(
 ) {
   if (req.method === 'POST') {
     const { name, email, password: unhashPass }: ReqData = req.body
-
+    //hash password
     hash(unhashPass, 10, async (err, password) => {
-      // create new user
       if (err) {
         res.status(500).json({ message: 'Something went wrong, Try again' })
       }
-
+      // create new user
       const result = await prisma.user
         .create({
           data: {

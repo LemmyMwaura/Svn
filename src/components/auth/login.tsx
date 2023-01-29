@@ -1,12 +1,9 @@
-// hooks
+// hooks & utils
 import { useState, MouseEvent } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
-
-// utils
 import toast from 'react-hot-toast'
-import axios from 'axios'
 
 // icons & styles
 import { FiGithub } from 'react-icons/fi'
@@ -37,6 +34,7 @@ const Login = ({ toggle }: Props) => {
     setShow((prev) => !prev)
   }
 
+  // OAuth
   const handleSignIn = async (provider: string, e: MouseEvent<any>) => {
     await signIn(provider, {
       callbackUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/home`,
@@ -45,17 +43,27 @@ const Login = ({ toggle }: Props) => {
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     // toast doesn't fully catch the err so we wrap this in a try catch block
+    const toastID = toast.loading('Logging In')
+
     try {
-      const promise = axios.post('/api/login', { email, password })
-      await toast.promise(promise, {
-        loading: 'Logging In',
-        success: () => `Successfully Logged in`,
-        error: (err) => `This just happened: ${err.message.toString()}`,
+      const res = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
       })
-    } catch (err) {}
+      if (res && res.ok) {
+        toast.dismiss(toastID)
+        toast.success('Logged In')
+        router.push('/home')
+      } else {
+        toast.dismiss(toastID)
+        toast.error('Invalid details')
+      }
+    } catch (err) {
+      toast.error(err as string)
+    }
 
     reset()
-    router.push('/home')
   }
 
   return (
@@ -68,7 +76,7 @@ const Login = ({ toggle }: Props) => {
         >
           <input
             className={styles.input}
-            type="text"
+            type="email"
             placeholder="Email"
             {...register('email', { required: true })}
           />

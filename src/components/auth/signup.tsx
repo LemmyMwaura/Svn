@@ -68,13 +68,12 @@ const Signup = ({ toggle }: Props) => {
       const promise = axios.post('/api/signup', { name, email, password })
       await toast.promise(promise, {
         loading: 'Creating Account',
-        success: () => `Successfully Signed in`,
+        success: () => `Successful, Proceed to signIn`,
         error: (err) => `This just happened: ${err.message.toString()}`,
       })
     } catch (err) {}
 
     reset()
-    router.push('/home')
   }
 
   return (
