@@ -1,3 +1,11 @@
+.wrapper {
+  display: grid;
+  place-content: center;
+  gap: 2rem;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
 .photolist {
   display: grid;
   gap: 1rem;
@@ -18,11 +26,58 @@
   &:hover {
     border: 2px solid rgba(var(--colors-fixed-brand8), 0.3);
   }
-
 }
 
 .photo {
   border: 10px solid rgba(var(--colors-fixed-brand8), 0.3);
   border-radius: var(--border-radius);
   object-fit: cover;
+}
+
+.form_wrapper {
+  padding: 2rem;
+  // background-color: rgba(var(--callout-rgb), 0.5);
+  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+  border-radius: var(--border-radius);
+}
+
+.photos_details {
+  min-width: 60vw;
+}
+
+.fields_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+
+  .input_wrapper {
+    display: grid;
+    gap: 0.8rem;
+    text-align: center;
+    min-width: 50%;
+  }
+
+  .input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(var(--callout-rgb), 0.5);
+    border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+    border-radius: var(--border-radius);
+  }
+
+  .error {
+    color: var(--colors-error);
+  }
+
+  .btn {
+    padding: 1rem;
+    background-color: var(--colors-fixed-brand8);
+    border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    color: rgba(var(--callout-rgb), 1);
+    font-weight: bold;
+  }
 }

@@ -16,7 +16,7 @@
 .detail_album_list {
   display: grid;
   gap: 1rem;
-  width: 60vw;
+  min-width: 60vw;
 }
 
 .album {
