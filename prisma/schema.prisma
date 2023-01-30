@@ -30,6 +30,7 @@ model Album {
 model Photos {
   id         Int    @id @default(autoincrement())
   photoTitle String
+  imageUrl   String
   albumId    Int
   album      Album  @relation(fields: [albumId], references: [id])
 }
