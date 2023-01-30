@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { signOut } from 'next-auth/react'
 import { imagePlaceholder } from '@/helpers/profile.util'
-import toast from 'react-hot-toast'
+import { Prisma } from '@prisma/client'
+import { useSession } from 'next-auth/react'
 import styles from '@/styles/Home.module.scss'
 
 type userDetails = string | null | undefined
@@ -15,20 +16,24 @@ interface Props {
         image?: userDetails
       }
     | undefined
+    | Prisma.UserSelect
 }
 
 const Profile = ({ user }: Props) => {
+  const [currentUser, setCurrent] = useState(false)
+  const { data: session } = useSession()
 
   useEffect(() => {
-    if (!user) return
-    toast.success(`Welcome ${user.name}`)
-  }, [user])
+    if (session?.user?.email === user?.email) {
+      setCurrent(true)
+    }
+  }, [session, user])
 
   const handleSignOut = () => {
     signOut()
   }
 
-  const image = user?.image ?? imagePlaceholder
+  const image = user?.image ?? (imagePlaceholder as any)
 
   return (
     <div>
@@ -36,9 +41,11 @@ const Profile = ({ user }: Props) => {
         <img className={styles.image} src={image} alt="User Profile Image" />
         <div className={styles.detail}>
           <div className={styles.name}>{user?.name}</div>
-          <button className={styles.btn} onClick={handleSignOut}>
-            Log Out
-          </button>
+          {currentUser && (
+            <button className={styles.btn} onClick={handleSignOut}>
+              Log Out
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -54,11 +54,11 @@ const Home = ({ users, externalUsers, albums }: Props) => {
         <Profile user={session?.user} />
         <div className={styles.selection}>
           <h3>Users From Local DB</h3>
-          <UsersList users={users} />
+          <UsersList users={users} fetchedFrom={'db'} />
         </div>
         <div className={styles.selection}>
           <h3>Users From Json Placeholder</h3>
-          <UsersList users={jsonData} />
+          <UsersList users={jsonData} fetchedFrom={'json'} />
         </div>
       </div>
     </>
