@@ -12,6 +12,7 @@ const Album = ({ album, user }: Props) => {
       <div>id: {album.id}</div>
       <div>title: {album.albumTitle}</div>
       {user && <div>By {user.name}</div>}
+      <div>{user && <button>UploadImage</button>}</div>
     </div>
   )
 }

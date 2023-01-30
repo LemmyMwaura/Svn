@@ -1,10 +1,9 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { prisma } from '@/lib/prisma.util'
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { Prisma } from '@prisma/client'
 import Profile from '@/components/shared/profile'
-import AlbumList from '@/components/shared/albumList'
+import AlbumList from '@/components/album/albumList'
 import styles from '@/styles/User.module.scss'
 
 interface Props {
@@ -13,8 +12,6 @@ interface Props {
 }
 
 const UserDetail = ({ user, albums }: Props) => {
-  const router = useRouter()
-
   return (
     <>
       <Head>

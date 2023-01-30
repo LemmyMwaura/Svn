@@ -24,7 +24,7 @@ const AlbumDetail = ({ album, user, photos }: Props) => {
         </div>
         <div className={styles.photos}>
           <h3>Photos</h3>
-          <PhotosList photos={photos} user={user} />
+          <PhotosList photos={photos} />
         </div>
       </div>
     </>
