@@ -43,7 +43,7 @@ export const authOptions = {
 
         //validate password
         const isValid = await compare(userPass, user.password)
-        if(!isValid) {
+        if (!isValid) {
           throw new Error("Password doesn't match")
         }
 
@@ -51,6 +51,9 @@ export const authOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: '/login',
+  },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     jwt: true,

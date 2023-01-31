@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
-import { getSession, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { Prisma } from '@prisma/client'
 
 // libs/Utils
@@ -68,7 +68,6 @@ const Home = ({ users, externalUsers, albums }: Props) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req })
   const albums = await prisma.album.findMany()
   const users = await prisma.user.findMany({
     include: {
@@ -81,19 +80,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   })
 
   const { data: externalUsers } = await axiosInstance.get('/users')
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
   return {
     props: {
-      session,
       users,
       externalUsers,
       albums,
