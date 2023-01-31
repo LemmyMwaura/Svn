@@ -1,5 +1,5 @@
 // hooks & utils
-import { useState, MouseEvent } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
@@ -35,7 +35,7 @@ const Login = ({ toggle }: Props) => {
   }
 
   // OAuth
-  const handleSignIn = async (provider: string, e: MouseEvent<any>) => {
+  const handleSignIn = async (provider: string) => {
     await signIn(provider, {
       callbackUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/home`,
     })
@@ -108,14 +108,14 @@ const Login = ({ toggle }: Props) => {
           </div>
           <button
             className={styles.provider_btn}
-            onClick={(e) => handleSignIn('google', e)}
+            onClick={() => handleSignIn('google')}
           >
             <span>Sign In With</span>
             <AiOutlineGoogle />
           </button>
           <button
             className={styles.provider_btn}
-            onClick={(e) => handleSignIn('github', e)}
+            onClick={() => handleSignIn('github')}
           >
             <span>Sign In With</span>
             <FiGithub />
