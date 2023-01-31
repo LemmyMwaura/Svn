@@ -19,7 +19,8 @@ export const config = {
     '/login',
     '/album',
     '/photos',
-    '/api/:path*',
+    '/api/album/:path*',
+    '/api/photos/:path*',
   ],
 }
 
