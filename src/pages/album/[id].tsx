@@ -95,7 +95,7 @@ const AlbumDetail = ({ album, user, photos }: Props) => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Update title"
+                  placeholder="title"
                   className={styles.input}
                   {...register('title', { required: true })}
                 />
