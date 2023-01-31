@@ -28,13 +28,6 @@ type Inputs = {
 const PhotoDetails = ({ photo, album, user }: Props) => {
   const [isOwner, setIsOwner] = useState(false)
   const { data: session } = useSession()
-
-  useEffect(() => {
-    if (session?.user?.email === user?.email) {
-      setIsOwner(true)
-    }
-  }, [session, user])
-
   const router = useRouter()
   const {
     register,
@@ -42,6 +35,12 @@ const PhotoDetails = ({ photo, album, user }: Props) => {
     reset,
     formState: { errors },
   } = useForm<Inputs>()
+
+  useEffect(() => {
+    if (session?.user?.email === user?.email) {
+      setIsOwner(true)
+    }
+  }, [session, user])
 
   const onSubmit: SubmitHandler<Inputs> = async ({ title }) => {
     const { id } = photo
@@ -53,9 +52,8 @@ const PhotoDetails = ({ photo, album, user }: Props) => {
         error: (err) => `This just happened: ${err.toString()}`,
       })
     } catch (err) {}
-
-    router.replace(router.asPath)
     reset()
+    router.replace(router.asPath)
   }
 
   return (

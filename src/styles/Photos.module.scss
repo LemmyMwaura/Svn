@@ -80,4 +80,9 @@
     color: rgba(var(--callout-rgb), 1);
     font-weight: bold;
   }
+
+  .btn:disabled {
+    color:rgba(var(--callout-rgb), 0.5);
+    transform: scale(1);
+  }
 }

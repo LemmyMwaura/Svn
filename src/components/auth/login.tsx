@@ -1,5 +1,5 @@
 // hooks & utils
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
@@ -27,8 +27,12 @@ const Login = ({ toggle }: Props) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitted, isSubmitSuccessful },
   } = useForm<Inputs>({ reValidateMode: 'onChange' })
+
+  useEffect(() => {
+    reset()
+  }, [isSubmitSuccessful, reset])
 
   const togglePass = () => {
     setShow((prev) => !prev)
@@ -62,8 +66,6 @@ const Login = ({ toggle }: Props) => {
     } catch (err) {
       toast.error(err as string)
     }
-
-    reset()
   }
 
   return (
@@ -98,7 +100,11 @@ const Login = ({ toggle }: Props) => {
           {errors.password && (
             <span className={styles.error}>Password is required</span>
           )}
-          <button type="submit" className={styles.provider_btn}>
+          <button
+            type="submit"
+            disabled={isSubmitted}
+            className={styles.provider_btn}
+          >
             Login
           </button>
         </form>

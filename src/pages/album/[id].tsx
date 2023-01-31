@@ -32,12 +32,12 @@ const AlbumDetail = ({ album, user, photos }: Props) => {
   const { data: session } = useSession()
   const router = useRouter()
   const albumId = router.query.id
-  
+
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitted },
+    formState: { errors, isSubmitted, isSubmitting },
   } = useForm<Inputs>()
 
   useEffect(() => {
@@ -64,8 +64,8 @@ const AlbumDetail = ({ album, user, photos }: Props) => {
           error: (err) => `This just happened: ${err.toString()}`,
         })
       } catch (err) {}
-      router.replace(router.asPath)
       reset()
+      router.replace(router.asPath)
     }
   }
 
@@ -90,6 +90,9 @@ const AlbumDetail = ({ album, user, photos }: Props) => {
             >
               <h3 className={styles.title}>Add Image</h3>
               <div className={styles.input_wrapper}>
+                <div className={styles.info}>
+                  Large Images are restricted. Please only upload JPEG files
+                </div>
                 <input
                   type="text"
                   placeholder="Update title"
@@ -108,7 +111,11 @@ const AlbumDetail = ({ album, user, photos }: Props) => {
                   <div className={styles.error}>Image file is required</div>
                 )}
               </div>
-              <button disabled={isSubmitted} className={styles.btn} type="submit">
+              <button
+                disabled={isSubmitted}
+                className={styles.btn}
+                type="submit"
+              >
                 Upload
               </button>
             </form>

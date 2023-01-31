@@ -1,5 +1,5 @@
 // hooks
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -31,8 +31,12 @@ const Signup = ({ toggle }: Props) => {
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitted, isSubmitSuccessful },
   } = useForm<Inputs>({ reValidateMode: 'onChange' })
+
+  useEffect(() => {
+    reset()
+  }, [isSubmitSuccessful, reset])
 
   const passMatch = (): boolean => {
     const watchPasswords = watch(['password', 'confirmPassword'])
@@ -72,8 +76,6 @@ const Signup = ({ toggle }: Props) => {
         error: (err) => `This just happened: ${err.message.toString()}`,
       })
     } catch (err) {}
-
-    reset()
   }
 
   return (
@@ -131,7 +133,7 @@ const Signup = ({ toggle }: Props) => {
             <span className={styles.error}>Passwords don`t match</span>
           )}
           <button
-            disabled={!passMatch()}
+            disabled={!passMatch() || isSubmitted}
             className={styles.login_btn}
             type="submit"
           >
