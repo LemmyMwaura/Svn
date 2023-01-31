@@ -66,14 +66,14 @@ const Signup = ({ toggle }: Props) => {
         loading: 'Validating',
         success: () => `Validation Success`,
         error: (err) =>
-          `This just happened: ${err.response.data.message.toString()}`,
+          `This just happened: ${err.response.data.message}`,
       })
 
       const promise = axios.post('/api/signup', { name, email, password })
       await toast.promise(promise, {
         loading: 'Creating Account',
         success: () => `Successful, Proceed to signIn`,
-        error: (err) => `This just happened: ${err.message.toString()}`,
+        error: (err) => `This just happened: ${err.message}`,
       })
     } catch (err) {}
   }
