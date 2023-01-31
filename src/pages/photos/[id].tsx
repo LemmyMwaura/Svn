@@ -11,6 +11,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 // extras
 import Photo from '@/components/photos/photo'
+import Header from '@/components/shared/header'
 import styles from '@/styles/Photos.module.scss'
 import axios from 'axios'
 import toast from 'react-hot-toast'
@@ -62,6 +63,7 @@ const PhotoDetails = ({ photo, album, user }: Props) => {
         <title> Photo | {photo?.photoTitle}</title>
       </Head>
       <div className={styles.wrapper}>
+        <Header />
         <div className={styles.photos_details}>
           <div className={styles.photos}>
             <Photo photo={photo} album={album} />

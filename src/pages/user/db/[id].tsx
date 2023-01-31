@@ -10,6 +10,7 @@ import { Prisma } from '@prisma/client'
 // items
 import Profile from '@/components/shared/profile'
 import AlbumList from '@/components/album/albumList'
+import Header from '@/components/shared/header'
 import styles from '@/styles/User.module.scss'
 
 // utils
@@ -64,6 +65,7 @@ const UserDetail = ({ user, albums }: Props) => {
         <title> DbUser | {user?.name}</title>
       </Head>
       <div className={styles.wrapper}>
+        <Header/>
         <Profile user={user} />
         <div className={styles.selection}>
           <h3>Albums</h3>
@@ -79,7 +81,7 @@ const UserDetail = ({ user, albums }: Props) => {
               <div className={styles.input_wrapper}>
                 <input
                   type="text"
-                  placeholder="Update title"
+                  placeholder="title"
                   className={styles.input}
                   {...register('title', { required: true })}
                 />

@@ -4,6 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import styles from '@/styles/User.module.scss'
 import Profile from '@/components/shared/profile'
+import Header from '@/components/shared/header'
 
 interface Props {
   user: any
@@ -19,6 +20,7 @@ const UserDetail = ({ user }: Props) => {
         <title> JsonUser | {user.name} </title>
       </Head>
       <div className={styles.wrapper}>
+        <Header />
         <Profile user={user} />
       </div>
     </>
