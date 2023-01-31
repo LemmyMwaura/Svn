@@ -9,6 +9,8 @@ interface Props {
 
 const User = ({ user, fetchedFrom }: Props) => {
   const router = useRouter()
+  // @ts-ignore
+  const albumCount = user?._count?.albums as any
 
   const selectUser = () => {
     router.push(`/user/${fetchedFrom}/${user.id}`)
@@ -18,7 +20,7 @@ const User = ({ user, fetchedFrom }: Props) => {
     <div className={styles.user} onClick={selectUser}>
       <div>id: {user.id}</div>
       <div>name: {user.name}</div>
-      <div>albums: {user?._count?.albums}</div>
+      <div>albums: {albumCount}</div>
     </div>
   )
 }
